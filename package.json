@@ -1,0 +1,11 @@
+{
+  "name": "van-gno",
+  "version": "1.0.0",
+  "private": true,
+  "scripts": {},
+  "dependencies": {
+    "ethers": "~5.7.1",
+    "ethereumjs-util": "~7.1.5",
+    "dotenv": "~10.0.0"
+  }
+}

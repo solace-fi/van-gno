@@ -1,0 +1,64 @@
+////////// USER: modify these values
+
+////////// settings for new safe
+// the set of EOAs that can sign transactions
+exports.owners = [
+  "0x7B875210957929fA2b3441E3e1dDa8EfE9EE8D6A",
+  "0xcB2b8855716b6990aBe6A12C9A6b505DF3c508d2",
+  "0xa1F46123c894A441031A06Ca33d7189Cd8F2DBaF"
+];
+// the number of signers required to sign a transaction
+exports.threshold          = 2;
+// other params. likely just leave defaults
+exports.to                 = "0x0000000000000000000000000000000000000000";
+exports.data               = "0x";
+exports.fallbackHandler    = "0xf48f2B2d2a534e402487b3ee7C18c33Aec0Fe5e4";
+exports.paymentToken       = "0x0000000000000000000000000000000000000000";
+exports.payment            = 0;
+exports.paymentReceiver    = "0x0000000000000000000000000000000000000000";
+
+////////// proxy and proxy factory settings
+exports.factoryAddress     = "0xa6B71E26C5e0845f74c812102Ca7114b6a896AB2";
+exports.singletonAddress   = "0xd9Db270c1B5E3Bd161E8c8503c55cEABeE709552"; // v1.3.0
+
+////////// search settings
+// search starts at this number and increments. use to save progress
+exports.startSaltNonce     = 0;
+// the number of safes to find and deploy
+exports.numToFind          = 1;
+// the location results are stored instead of searching every time
+exports.checkpointFile     = "checkpoint.json";
+
+// determines if a given address is acceptable to use
+function isAcceptableVanity(addr) {
+  // example: if we want the address to start with six ones, we can use
+  // return (addr.substring(0,8) === '0x111111');
+  return true; // I dont care what the address is as long as its uniform across chains
+}
+exports.isAcceptableVanity = isAcceptableVanity;
+
+const ONE_GWEI = 1000000000;
+
+exports.networks = [
+  {
+    chainID: "1",
+    name: "Ethereum",
+    url: "https://eth-mainnet.alchemyapi.io/v2/<api_key>", // using a paid provider
+    confirmations: 2, // the number of blocks that must pass before a transaction is considered final
+    overrides: {maxFeePerGas: 40 * ONE_GWEI, maxPriorityFeePerGas: 2 * ONE_GWEI} // gas settings. leave empty to query from provider
+  },
+  {
+    chainID: "5",
+    name: "Goerli",
+    url: "https://eth-goerli.public.blastapi.io", // using a public rpc
+    confirmations: 1,
+    overrides: {}
+  },
+  {
+    chainID: "31337",
+    name: "Hardhat Local Testnet",
+    url: "http://127.0.0.1:8545/", // using a local testnet
+    confirmations: 0,
+    overrides: {}
+  }
+]
